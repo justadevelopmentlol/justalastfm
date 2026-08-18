@@ -1,0 +1,33 @@
+{
+  "name": "lastfm-discord-app",
+  "version": "1.0.0",
+  "description": "A user-installable Discord app for Last.fm now playing cards.",
+  "private": false,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc -p tsconfig.json",
+    "register": "tsx src/register-commands.ts",
+    "check": "tsc --noEmit"
+  },
+  "keywords": [
+    "discord",
+    "lastfm",
+    "typescript",
+    "discord-components-v2"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.25.1",
+    "dotenv": "^16.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
