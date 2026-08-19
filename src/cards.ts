@@ -2,12 +2,12 @@ import { ButtonStyle, InteractionReplyOptions, MessageFlags, escapeMarkdown } fr
 import { EmojiRegistry } from "./application-emojis.js";
 import { LastFmTrack } from "./lastfm.js";
 
-const pink = 0xf276ae;
+const white = 0xffffff;
 
 function card(components: Array<Record<string, unknown>>): InteractionReplyOptions {
   return {
     flags: MessageFlags.IsComponentsV2,
-    components: [{ type: 17, accent_color: pink, components }] as never
+    components: [{ type: 17, accent_color: white, components }] as never
   };
 }
 
@@ -35,7 +35,7 @@ export function connectCard(): InteractionReplyOptions {
     { type: 14, divider: true, spacing: 1 },
     {
       type: 1,
-      components: [actionButton("Connect Last.fm", "fm:connect", ButtonStyle.Primary)]
+      components: [actionButton("Connect Last.fm", "fm:connect", ButtonStyle.Secondary)]
     },
     text("Once linked, your account will be connected to Discord. Use `/fm logout` to remove it at any time.")
   ]);
