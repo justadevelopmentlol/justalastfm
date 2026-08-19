@@ -16,7 +16,7 @@ export const fmCommand = new SlashCommandBuilder()
 
 export const fmLoginCommand = new SlashCommandBuilder()
   .setName("fm-login")
-  .setDescription("Verknüpfe deinen Last.fm-Account")
+  .setDescription("Connect your Last.fm account")
   .setIntegrationTypes(ApplicationIntegrationType.UserInstall)
   .setContexts(
     InteractionContextType.Guild,
@@ -26,7 +26,7 @@ export const fmLoginCommand = new SlashCommandBuilder()
 
 export const fmLogoutCommand = new SlashCommandBuilder()
   .setName("fm-logout")
-  .setDescription("Entferne deine Last.fm-Verknüpfung")
+  .setDescription("Disconnect your Last.fm account")
   .setIntegrationTypes(ApplicationIntegrationType.UserInstall)
   .setContexts(
     InteractionContextType.Guild,

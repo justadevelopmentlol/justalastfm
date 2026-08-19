@@ -48,59 +48,6 @@ For development with automatic restarts:
 npm run dev
 ```
 
-## Host on Proxmox manually
-
-Run the bot in an Ubuntu VM or LXC on Proxmox. Node.js 22 or newer is required.
-
-Install Node.js and clone the repository:
-
-```bash
-sudo apt update
-sudo apt install -y git curl
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt install -y nodejs
-git clone https://github.com/realryz/justalastfm.git
-cd justalastfm
-npm i
-cp .env.example .env
-nano .env
-npm run register
-npm run build
-npm start
-```
-
-For automatic restarts after reboots, create `/etc/systemd/system/lastfmbot.service` and replace `YOUR_USER` with your Ubuntu username:
-
-```ini
-[Unit]
-Description=Last.fm Discord Bot
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-Type=simple
-User=YOUR_USER
-WorkingDirectory=/home/YOUR_USER/justalastfm
-EnvironmentFile=/home/YOUR_USER/justalastfm/.env
-ExecStart=/usr/bin/node /home/YOUR_USER/justalastfm/dist/index.js
-Restart=always
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Enable the service:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable --now lastfmbot
-sudo systemctl status lastfmbot
-journalctl -u lastfmbot -f
-```
-
-No inbound port forwarding is required. Account data is stored in `data/accounts.json`. Keep `.env` private and never commit it.
-
 ## Add the bot to Discord
 
 Install the app directly with this link:

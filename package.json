@@ -1,7 +1,7 @@
 {
-  "name": "lastfmbot",
-  "version": "1.0.0",
-  "description": "A user-installable Discord app for Last.fm now playing cards.",
+  "name": "justalastfm",
+  "version": "1.0.2",
+  "description": "justalastfm is a Discord bot that allows users to link their Last.fm accounts and view their listening statistics directly within Discord.",
   "private": false,
   "type": "module",
   "engines": {

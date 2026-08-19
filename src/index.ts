@@ -23,7 +23,7 @@ function loginModal(): ModalBuilder {
   const username = new TextInputBuilder()
     .setCustomId("lastfm-username")
     .setLabel("Last.fm Username")
-    .setPlaceholder("z. B. hauntgg")
+    .setPlaceholder("username")
     .setStyle(TextInputStyle.Short)
     .setRequired(true)
     .setMinLength(1)
@@ -39,7 +39,7 @@ async function showFm(discordId: string) {
   const account = accounts.get(discordId);
 
   if (!account) {
-    return connectCard();
+    return connectCard(emojis);
   }
 
   const track = await lastFm.getLatestTrack(account.lastFmUsername);
@@ -47,8 +47,8 @@ async function showFm(discordId: string) {
 }
 
 function errorMessage(error: unknown): string {
-  const message = error instanceof Error ? error.message : "Unbekannter Fehler";
-  return `Last.fm konnte nicht geladen werden: ${message}`;
+  const message = error instanceof Error ? error.message : "Unknown error";
+  return `Could not load Last.fm: ${message}`;
 }
 
 await accounts.load();
@@ -67,12 +67,12 @@ client.once(Events.ClientReady, async (readyClient) => {
 client.on(Events.InteractionCreate, async (interaction) => {
   try {
     if (interaction.isChatInputCommand()) {
-      if (interaction.commandName === "fm-login") {
-        await interaction.reply(connectCard());
+      if (interaction.commandName === "fm-login" || interaction.commandName === "fm login") {
+        await interaction.reply(connectCard(emojis));
         return;
       }
 
-      if (interaction.commandName === "fm-logout") {
+      if (interaction.commandName === "fm-logout" || interaction.commandName === "fm logout") {
         await accounts.delete(interaction.user.id);
         await interaction.reply(logoutCard());
         return;
@@ -101,7 +101,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
       if (!/^[^\s]{1,64}$/.test(username)) {
         await interaction.reply({
-          content: "Bitte gib einen gültigen Last.fm-Username ohne Leerzeichen ein.",
+          content: "Enter a valid Last.fm username without spaces.",
           flags: MessageFlags.Ephemeral
         });
         return;

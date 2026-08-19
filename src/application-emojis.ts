@@ -10,6 +10,7 @@ type ApplicationEmojiList = {
 };
 
 const emojiUrls = {
+  fm_lastfm: "https://cloud.ryz.wtf/lastfm.png",
   fm_mic: "https://cloud.ryz.wtf/microphone.png",
   fm_album: "https://cloud.ryz.wtf/album.png",
   fm_wave: "https://cloud.ryz.wtf/wave.png"
@@ -45,6 +46,11 @@ export class EmojiRegistry {
   text(name: keyof typeof emojiUrls, fallback: string): string {
     const id = this.ids.get(name);
     return id ? `<:${name}:${id}>` : fallback;
+  }
+
+  button(name: keyof typeof emojiUrls): { id: string; name: string } | undefined {
+    const id = this.ids.get(name);
+    return id ? { id, name } : undefined;
   }
 
   private async download(name: keyof typeof emojiUrls): Promise<string> {
