@@ -56,7 +56,20 @@ Install Git and Docker in the VM, then deploy the bot:
 
 ```bash
 sudo apt update
-sudo apt install -y git docker.io docker-compose-plugin
+sudo apt install -y git ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/debian
+Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl enable --now docker
 git clone https://github.com/realryz/justalastfm.git
 cd justalastfm
@@ -76,6 +89,8 @@ docker compose up -d --build
 ```
 
 The account data is persisted in `data/accounts.json` through the mounted `./data` directory. Keep `.env` private and never commit it.
+
+The commands above are for Debian. For Ubuntu, replace both `/linux/debian` URLs with `/linux/ubuntu` and use the Ubuntu codename from `/etc/os-release`. See the [official Docker installation guide](https://docs.docker.com/engine/install/) for platform-specific details.
 
 ## Add the bot to Discord
 
