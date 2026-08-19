@@ -48,49 +48,58 @@ For development with automatic restarts:
 npm run dev
 ```
 
-## Host on Proxmox
+## Host on Proxmox manually
 
-Run the bot in an Ubuntu VM on Proxmox. A VM is recommended for Docker; an LXC also works when Docker nesting is enabled.
+Run the bot in an Ubuntu VM or LXC on Proxmox. Node.js 22 or newer is required.
 
-Install Git and Docker in the VM, then deploy the bot:
+Install Node.js and clone the repository:
 
 ```bash
 sudo apt update
-sudo apt install -y git ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
-Types: deb
-URIs: https://download.docker.com/linux/ubuntu
-Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
-Components: stable
-Architectures: $(dpkg --print-architecture)
-Signed-By: /etc/apt/keyrings/docker.asc
-EOF
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo systemctl enable --now docker
+sudo apt install -y git curl
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
 git clone https://github.com/realryz/justalastfm.git
 cd justalastfm
+npm i
 cp .env.example .env
 nano .env
-docker compose up -d --build
+npm run register
+npm run build
+npm start
 ```
 
-The container registers the global commands on startup and keeps the bot running after reboots. No inbound port forwarding is required.
+For automatic restarts after reboots, create `/etc/systemd/system/lastfmbot.service` and replace `YOUR_USER` with your Ubuntu username:
 
-Useful commands:
+```ini
+[Unit]
+Description=Last.fm Discord Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_USER
+WorkingDirectory=/home/YOUR_USER/justalastfm
+EnvironmentFile=/home/YOUR_USER/justalastfm/.env
+ExecStart=/usr/bin/node /home/YOUR_USER/justalastfm/dist/index.js
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable the service:
 
 ```bash
-docker compose logs -f
-docker compose restart
-docker compose up -d --build
+sudo systemctl daemon-reload
+sudo systemctl enable --now lastfmbot
+sudo systemctl status lastfmbot
+journalctl -u lastfmbot -f
 ```
 
-The account data is persisted in `data/accounts.json` through the mounted `./data` directory. Keep `.env` private and never commit it.
-
-The commands above are for Ubuntu. See the [official Docker installation guide](https://docs.docker.com/engine/install/ubuntu/) for platform-specific details.
+No inbound port forwarding is required. Account data is stored in `data/accounts.json`. Keep `.env` private and never commit it.
 
 ## Add the bot to Discord
 
