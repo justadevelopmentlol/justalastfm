@@ -12,10 +12,4 @@ export const fmCommand = new SlashCommandBuilder()
     InteractionContextType.Guild,
     InteractionContextType.BotDM,
     InteractionContextType.PrivateChannel
-  )
-  .addSubcommand((subcommand) => subcommand
-    .setName("login")
-    .setDescription("Verknüpfe deinen Last.fm-Account"))
-  .addSubcommand((subcommand) => subcommand
-    .setName("logout")
-    .setDescription("Entferne deine Last.fm-Verknüpfung"));
+  );

@@ -69,7 +69,10 @@ export function trackCard(track: LastFmTrack, emojis: EmojiRegistry, ownerDiscor
     { type: 14, divider: true, spacing: 1 },
     {
       type: 1,
-      components: [actionButton("Aktualisieren", `fm:refresh:${ownerDiscordId}`, ButtonStyle.Secondary)]
+      components: [
+        actionButton("Aktualisieren", `fm:refresh:${ownerDiscordId}`, ButtonStyle.Secondary),
+        actionButton("Logout", `fm:logout:${ownerDiscordId}`, ButtonStyle.Danger)
+      ]
     }
   ]);
 }

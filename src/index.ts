@@ -67,24 +67,6 @@ client.once(Events.ClientReady, async (readyClient) => {
 client.on(Events.InteractionCreate, async (interaction) => {
   try {
     if (interaction.isChatInputCommand() && interaction.commandName === "fm") {
-      const subcommand = interaction.options.getSubcommand(false);
-
-      if (subcommand === "login") {
-        await interaction.reply(connectCard());
-        return;
-      }
-
-      if (subcommand === "logout") {
-        const removed = await accounts.delete(interaction.user.id);
-        await interaction.reply({
-          content: removed
-            ? "Deine Last.fm-Verknüpfung wurde entfernt."
-            : "Du hast keinen verknüpften Last.fm-Account.",
-          flags: MessageFlags.Ephemeral
-        });
-        return;
-      }
-
       const payload = await showFm(interaction.user.id);
       await interaction.reply(payload);
       return;
@@ -111,6 +93,23 @@ client.on(Events.InteractionCreate, async (interaction) => {
         const payload = await showFm(interaction.user.id);
         const { flags: _, ...editPayload } = payload;
         await interaction.editReply(editPayload);
+      }
+
+      if (interaction.customId.startsWith("fm:logout:")) {
+        const ownerDiscordId = interaction.customId.slice("fm:logout:".length);
+
+        if (ownerDiscordId !== interaction.user.id) {
+          await interaction.reply({
+            content: "Diese Karte gehört einem anderen Discord-Account.",
+            flags: MessageFlags.Ephemeral
+          });
+          return;
+        }
+
+        await accounts.delete(interaction.user.id);
+        const payload = connectCard();
+        const { flags: _, ...updatePayload } = payload;
+        await interaction.update(updatePayload);
       }
 
       return;

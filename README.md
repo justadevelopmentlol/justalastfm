@@ -6,8 +6,8 @@ Eine private, user-installierbare Discord-App in TypeScript. Mit `/fm` zeigt sie
 
 - User Install: Jede Person fügt die App nur ihrem eigenen Discord-Account hinzu
 - `/fm`: aktueller oder letzter Track
-- `/fm login`: Modal für den Last.fm-Username
-- `/fm logout`: löscht die Verknüpfung
+- Connect-Button in der Karte: Modal für den Last.fm-Username
+- Logout-Button in der Songkarte: löscht die Verknüpfung
 - Zuordnung Discord-ID → Last.fm-Username in `data/accounts.json`
 - Application Emojis werden beim Start von `cloud.ryz.wtf` synchronisiert
 - Components v2 mit Container, Section, Thumbnail und Buttons
