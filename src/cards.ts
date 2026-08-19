@@ -35,14 +35,14 @@ function number(value: number | null): string {
 
 export function connectCard(): InteractionReplyOptions {
   return card([
-    text("# **Last.fm verbinden**"),
-    text("Verbinde deinen Last.fm-Account, damit du deinen aktuellen oder zuletzt gescrobbelten Song mit `/fm` anzeigen kannst."),
+    text("# **Connect your Last.fm**"),
+    text("Click **Connect Last.fm** below and enter your Last.fm username."),
     { type: 14, divider: true, spacing: 1 },
     {
       type: 1,
       components: [actionButton("Connect Last.fm", "fm:connect", ButtonStyle.Primary)]
     },
-    text("Dein Last.fm-Username wird sicher mit deiner Discord-ID verknüpft. Mit `/fm logout` kannst du die Verbindung jederzeit löschen.")
+    text("Once linked, your account will be connected to Discord. Use `/fm logout` to remove it at any time.")
   ]);
 }
 

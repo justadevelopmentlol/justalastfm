@@ -70,7 +70,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
       const subcommand = interaction.options.getSubcommand(false);
 
       if (subcommand === "login") {
-        await interaction.showModal(loginModal());
+        await interaction.reply(connectCard());
         return;
       }
 
