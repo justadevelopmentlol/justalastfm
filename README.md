@@ -2,39 +2,39 @@
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-%233178C6.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![Last.fm](https://img.shields.io/badge/Last.fm-%23D51007.svg?style=for-the-badge&logo=lastdotfm&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-%23339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white)
 
-Last.fm Bot ist eine private, user-installierbare Discord-App für deinen aktuellen oder zuletzt gescrobbelten Song. Verbinde deinen Last.fm-Username, nutze `/fm` und erhalte eine übersichtliche Components-v2-Karte mit Songtitel, Künstler, Album, Cover und Last.fm-Link.
+Last.fm Bot is a private, user-installable Discord app for displaying your currently playing or most recently scrobbled track. Connect your Last.fm username, run `/fm`, and get a clean Discord Components v2 card with the song, artist, album, cover art, and a direct Last.fm link.
 
 ## Get started
 
 > [!NOTE]
-> Die Installation läuft vollständig über das Terminal. Node.js 22 oder neuer und ein Last.fm-API-Key werden benötigt.
+> Installation is done entirely from the terminal. Node.js 22 or newer and a Last.fm API key are required.
 
-### 1. Repository herunterladen
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/DEIN-USERNAME/lastfmbot.git
-cd lastfmbot
+git clone https://github.com/realryz/justalastfm.git
+cd justalastfm
 npm i
 ```
 
-### 2. Umgebungsvariablen einrichten
+### 2. Configure environment variables
 
 ```bash
 cp .env.example .env
 ```
 
-Öffne `.env` und trage deine Werte ein:
+Open `.env` and add your values:
 
 ```env
-DISCORD_TOKEN=dein_bot_token
-DISCORD_CLIENT_ID=deine_application_id
-LASTFM_API_KEY=dein_lastfm_api_key
+DISCORD_TOKEN=your_bot_token
+DISCORD_CLIENT_ID=your_application_id
+LASTFM_API_KEY=your_lastfm_api_key
 DATA_FILE=./data/accounts.json
 ```
 
-Den Discord-Token und die Application ID bekommst du im [Discord Developer Portal](https://discord.com/developers/applications). Einen Last.fm-Key kannst du über [Last.fm API](https://www.last.fm/api/account/create) erstellen.
+Get your Discord token and Application ID from the [Discord Developer Portal](https://discord.com/developers/applications). Create a Last.fm key at [Last.fm API](https://www.last.fm/api/account/create).
 
-### 3. Commands registrieren und Bot starten
+### 3. Register commands and start the bot
 
 ```bash
 npm run register
@@ -42,37 +42,37 @@ npm run build
 npm start
 ```
 
-Für die Entwicklung mit automatischem Neustart:
+For development with automatic restarts:
 
 ```bash
 npm run dev
 ```
 
-## Auf Discord installieren
+## Add the bot to Discord
 
-Installiere den Bot direkt über diesen Link:
+Install the app directly with this link:
 
 <p align="center">
   <a href="https://discord.com/oauth2/authorize?client_id=1539424944310587422"><img src="https://img.shields.io/badge/Add%20to%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Add to Discord" /></a>
 </p>
 
-Aktiviere im Developer Portal unter **Installation** den Bereich **User Install** und verwende für User Install ausschließlich den Scope `applications.commands`.
+In the Developer Portal, enable **User Install** under **Installation** and use only the `applications.commands` scope for user installations.
 
 ## Commands
 
-- `/fm` zeigt den aktuellen oder letzten Last.fm-Track.
-- `/fm-login` öffnet die Connect-Last.fm-Karte und das Username-Modal.
-- `/fm-logout` entfernt die gespeicherte Last.fm-Verknüpfung.
+- `/fm` displays the currently playing or most recent Last.fm track.
+- `/fm-login` opens the Connect Last.fm card and username modal.
+- `/fm-logout` removes the saved Last.fm connection.
 
-Wenn noch kein Last.fm-Account verbunden ist, zeigt `/fm` automatisch die Connect-Karte. Der Connect-Button ist grau und weiterhin anklickbar.
+If no Last.fm account is connected, `/fm` automatically displays the Connect card. The Connect button is gray and remains fully clickable.
 
 ## Privacy safeguards
 
-Gespeichert werden nur Discord-ID, Last.fm-Username und der Verknüpfungszeitpunkt. Last.fm-Passwörter und OAuth-Tokens werden nicht gespeichert. Die Daten liegen standardmäßig in `data/accounts.json` und werden nicht ins Repository eingecheckt.
+Only the Discord ID, Last.fm username, and connection timestamp are stored. No Last.fm passwords or OAuth tokens are stored. By default, data is kept in `data/accounts.json` and is excluded from the repository.
 
-## Emoji-Synchronisierung
+## Emoji synchronization
 
-Beim Start lädt die App `album.png`, `microphone.png` und `wave.png` direkt von `cloud.ryz.wtf` und erstellt fehlende Application Emojis über Discords API. Lokale Emoji-Dateien werden nicht benötigt.
+On startup, the app downloads `album.png`, `microphone.png`, and `wave.png` directly from `cloud.ryz.wtf` and creates missing Application Emojis through Discord's API. No local emoji files are required.
 
 <br/>
 
