@@ -72,7 +72,7 @@ Only the Discord ID, Last.fm username, and connection timestamp are stored. No L
 
 ## Emoji synchronization
 
-On startup, the app downloads `album.png`, `microphone.png`, and `wave.png` directly from `cloud.ryz.wtf` and creates missing Application Emojis through Discord's API. No local emoji files are required.
+On startup, the app downloads `album.png`, `lastfm.png`, `microphone.png`, and `wave.png` directly from `cloud.ryz.wtf` and creates missing Application Emojis through Discord's API. No local emoji files are required.
 
 <br/>
 
