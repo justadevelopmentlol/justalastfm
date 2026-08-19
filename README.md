@@ -81,7 +81,3 @@ On startup, the app downloads `album.png`, `microphone.png`, and `wave.png` dire
   <a href="https://discord.com/oauth2/authorize?client_id=1539424944310587422"><img src="https://img.shields.io/badge/Discord%20App-181a1e?style=for-the-badge&logo=discord&logoColor=FFFFFF" alt="Discord App" /></a>
   <a href="mailto:hey@ryz.wtf"><img src="https://img.shields.io/badge/hey@ryz.wtf-181a1e?style=for-the-badge&logo=maildotru&logoColor=FFFFFF" alt="Email" /></a>
 </p>
-
-## License
-
-MIT
