@@ -1,8 +1,8 @@
-# Last.fm Bot
+# justalastfm
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-%233178C6.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![Last.fm](https://img.shields.io/badge/Last.fm-%23D51007.svg?style=for-the-badge&logo=lastdotfm&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-%23339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white)
 
-Last.fm Bot is a private, user-installable Discord app for displaying your currently playing or most recently scrobbled track. Connect your Last.fm username, run `/fm`, and get a clean Discord Components v2 card with the song, artist, album, cover art, and a direct Last.fm link.
+justalastfm is a public, user-installable Discord app for displaying your currently playing or most recently scrobbled track. Connect your Last.fm username, run `/fm`, and get a clean Discord Components v2 card with the song, artist, album, cover art, and a direct Last.fm link.
 
 ## Get started
 
