@@ -1,0 +1,9 @@
+.env
+.git
+.github
+node_modules
+dist
+data/accounts.json
+data/accounts.json.tmp
+*.log
+.DS_Store

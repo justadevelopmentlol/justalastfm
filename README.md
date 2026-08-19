@@ -48,6 +48,35 @@ For development with automatic restarts:
 npm run dev
 ```
 
+## Host on Proxmox
+
+Run the bot in a Debian 12 or Ubuntu VM on Proxmox. A VM is recommended for Docker; an LXC also works when Docker nesting is enabled.
+
+Install Git and Docker in the VM, then deploy the bot:
+
+```bash
+sudo apt update
+sudo apt install -y git docker.io docker-compose-plugin
+sudo systemctl enable --now docker
+git clone https://github.com/realryz/justalastfm.git
+cd justalastfm
+cp .env.example .env
+nano .env
+docker compose up -d --build
+```
+
+The container registers the global commands on startup and keeps the bot running after reboots. No inbound port forwarding is required.
+
+Useful commands:
+
+```bash
+docker compose logs -f
+docker compose restart
+docker compose up -d --build
+```
+
+The account data is persisted in `data/accounts.json` through the mounted `./data` directory. Keep `.env` private and never commit it.
+
 ## Add the bot to Discord
 
 Install the app directly with this link:

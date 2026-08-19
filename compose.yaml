@@ -1,0 +1,9 @@
+services:
+  lastfmbot:
+    build: .
+    container_name: lastfmbot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
