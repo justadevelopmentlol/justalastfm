@@ -1,5 +1,5 @@
 {
-  "name": "lastfm-discord-app",
+  "name": "lastfmbot",
   "version": "1.0.0",
   "description": "A user-installable Discord app for Last.fm now playing cards.",
   "private": false,

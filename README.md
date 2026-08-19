@@ -1,4 +1,4 @@
-# Last.fm Discord App
+# Last.fm Bot
 
 Eine private, user-installierbare Discord-App in TypeScript. Mit `/fm` zeigt sie den aktuell laufenden oder zuletzt gescrobbelten Last.fm-Track als Discord Components-v2-Karte. Der Tracktitel führt direkt zur Last.fm-Seite des Songs.
 
@@ -21,8 +21,8 @@ Eine private, user-installierbare Discord-App in TypeScript. Mit `/fm` zeigt sie
 ## Installation
 
 ```bash
-git clone https://github.com/DEIN-USERNAME/lastfm-discord-app.git
-cd lastfm-discord-app
+git clone https://github.com/DEIN-USERNAME/lastfmbot.git
+cd lastfmbot
 npm install
 cp .env.example .env
 ```
@@ -65,7 +65,7 @@ npm run check
 
 ## Emoji-Synchronisierung
 
-Beim erfolgreichen Start liest die App die drei PNG-Dateien aus `assets/emojis` und erstellt fehlende Application Emojis über Discords API. Bereits vorhandene Emojis gleichen Namens werden wiederverwendet. Falls Discord den Upload ablehnt, verwendet die Karte automatisch passende Unicode-Emojis als Fallback.
+Beim erfolgreichen Start liest die drei WebP-Dateien aus `assets/emojis` und erstellt fehlende Application Emojis über Discords API. Bereits vorhandene Emojis gleichen Namens werden wiederverwendet. Falls Discord den Upload ablehnt, verwendet die Karte automatisch passende Unicode-Emojis als Fallback.
 
 ## Datenschutz
 
