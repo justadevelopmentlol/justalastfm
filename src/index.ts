@@ -10,7 +10,7 @@ import {
 } from "discord.js";
 import { AccountStore } from "./account-store.js";
 import { EmojiRegistry } from "./application-emojis.js";
-import { connectCard, trackCard } from "./cards.js";
+import { connectCard, logoutCard, trackCard } from "./cards.js";
 import { config } from "./config.js";
 import { LastFmClient } from "./lastfm.js";
 
@@ -43,7 +43,7 @@ async function showFm(discordId: string) {
   }
 
   const track = await lastFm.getLatestTrack(account.lastFmUsername);
-  return trackCard(track, emojis, discordId);
+  return trackCard(track, emojis);
 }
 
 function errorMessage(error: unknown): string {
@@ -66,7 +66,22 @@ client.once(Events.ClientReady, async (readyClient) => {
 
 client.on(Events.InteractionCreate, async (interaction) => {
   try {
-    if (interaction.isChatInputCommand() && interaction.commandName === "fm") {
+    if (interaction.isChatInputCommand()) {
+      if (interaction.commandName === "fm-login") {
+        await interaction.reply(connectCard());
+        return;
+      }
+
+      if (interaction.commandName === "fm-logout") {
+        await accounts.delete(interaction.user.id);
+        await interaction.reply(logoutCard());
+        return;
+      }
+
+      if (interaction.commandName !== "fm") {
+        return;
+      }
+
       const payload = await showFm(interaction.user.id);
       await interaction.reply(payload);
       return;
@@ -76,40 +91,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
       if (interaction.customId === "fm:connect") {
         await interaction.showModal(loginModal());
         return;
-      }
-
-      if (interaction.customId.startsWith("fm:refresh:")) {
-        const ownerDiscordId = interaction.customId.slice("fm:refresh:".length);
-
-        if (ownerDiscordId !== interaction.user.id) {
-          await interaction.reply({
-            content: "Diese Karte gehört einem anderen Discord-Account. Nutze `/fm` für deine eigene Karte.",
-            flags: MessageFlags.Ephemeral
-          });
-          return;
-        }
-
-        await interaction.deferUpdate();
-        const payload = await showFm(interaction.user.id);
-        const { flags: _, ...editPayload } = payload;
-        await interaction.editReply(editPayload);
-      }
-
-      if (interaction.customId.startsWith("fm:logout:")) {
-        const ownerDiscordId = interaction.customId.slice("fm:logout:".length);
-
-        if (ownerDiscordId !== interaction.user.id) {
-          await interaction.reply({
-            content: "Diese Karte gehört einem anderen Discord-Account.",
-            flags: MessageFlags.Ephemeral
-          });
-          return;
-        }
-
-        await accounts.delete(interaction.user.id);
-        const payload = connectCard();
-        const { flags: _, ...updatePayload } = payload;
-        await interaction.update(updatePayload);
       }
 
       return;

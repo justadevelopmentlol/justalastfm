@@ -1,9 +1,4 @@
-import {
-  ButtonStyle,
-  InteractionReplyOptions,
-  MessageFlags,
-  escapeMarkdown
-} from "discord.js";
+import { ButtonStyle, InteractionReplyOptions, MessageFlags, escapeMarkdown } from "discord.js";
 import { EmojiRegistry } from "./application-emojis.js";
 import { LastFmTrack } from "./lastfm.js";
 
@@ -46,7 +41,14 @@ export function connectCard(): InteractionReplyOptions {
   ]);
 }
 
-export function trackCard(track: LastFmTrack, emojis: EmojiRegistry, ownerDiscordId: string): InteractionReplyOptions {
+export function logoutCard(): InteractionReplyOptions {
+  return card([
+    text("# **Last.fm logout**"),
+    text("Deine Last.fm-Verknüpfung wurde erfolgreich entfernt.")
+  ]);
+}
+
+export function trackCard(track: LastFmTrack, emojis: EmojiRegistry): InteractionReplyOptions {
   const song = escapeMarkdown(track.name);
   const artist = escapeMarkdown(track.artist);
   const album = track.album ? escapeMarkdown(track.album) : "Unbekanntes Album";
@@ -65,14 +67,6 @@ export function trackCard(track: LastFmTrack, emojis: EmojiRegistry, ownerDiscor
   }
 
   return card([
-    section,
-    { type: 14, divider: true, spacing: 1 },
-    {
-      type: 1,
-      components: [
-        actionButton("Aktualisieren", `fm:refresh:${ownerDiscordId}`, ButtonStyle.Secondary),
-        actionButton("Logout", `fm:logout:${ownerDiscordId}`, ButtonStyle.Danger)
-      ]
-    }
+    section
   ]);
 }
