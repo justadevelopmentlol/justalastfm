@@ -65,7 +65,7 @@ npm run check
 
 ## Emoji-Synchronisierung
 
-Beim erfolgreichen Start lädt die App `album.webp`, `microphone.webp` und `wave.webp` direkt von `cloud.ryz.wtf` und erstellt fehlende Application Emojis über Discords API. Bereits vorhandene Emojis gleichen Namens werden wiederverwendet. Falls Discord den Upload ablehnt oder die Cloud vorübergehend nicht erreichbar ist, verwendet die Karte automatisch passende Unicode-Emojis als Fallback.
+Beim erfolgreichen Start lädt die App `album.png`, `microphone.png` und `wave.png` direkt von `cloud.ryz.wtf` und erstellt fehlende Application Emojis über Discords API. Bereits vorhandene Emojis gleichen Namens werden wiederverwendet. Falls Discord den Upload ablehnt oder die Cloud vorübergehend nicht erreichbar ist, verwendet die Karte automatisch passende Unicode-Emojis als Fallback.
 
 ## Datenschutz
 

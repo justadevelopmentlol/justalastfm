@@ -10,9 +10,9 @@ type ApplicationEmojiList = {
 };
 
 const emojiUrls = {
-  fm_mic: "https://cloud.ryz.wtf/microphone.webp",
-  fm_album: "https://cloud.ryz.wtf/album.webp",
-  fm_wave: "https://cloud.ryz.wtf/wave.webp"
+  fm_mic: "https://cloud.ryz.wtf/microphone.png",
+  fm_album: "https://cloud.ryz.wtf/album.png",
+  fm_wave: "https://cloud.ryz.wtf/wave.png"
 } as const;
 
 export class EmojiRegistry {
@@ -35,7 +35,7 @@ export class EmojiRegistry {
       const created = await rest.post(route, {
         body: {
           name,
-          image: `data:image/webp;base64,${image}`
+          image: `data:image/png;base64,${image}`
         }
       }) as ApplicationEmoji;
       this.ids.set(name, created.id);
