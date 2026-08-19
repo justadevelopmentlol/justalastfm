@@ -9,7 +9,7 @@ Eine private, user-installierbare Discord-App in TypeScript. Mit `/fm` zeigt sie
 - `/fm login`: Modal für den Last.fm-Username
 - `/fm logout`: löscht die Verknüpfung
 - Zuordnung Discord-ID → Last.fm-Username in `data/accounts.json`
-- Application Emojis aus `assets/emojis` werden beim Start synchronisiert
+- Application Emojis werden beim Start von `cloud.ryz.wtf` synchronisiert
 - Components v2 mit Container, Section, Thumbnail und Buttons
 
 ## Voraussetzungen
@@ -65,7 +65,7 @@ npm run check
 
 ## Emoji-Synchronisierung
 
-Beim erfolgreichen Start liest die drei WebP-Dateien aus `assets/emojis` und erstellt fehlende Application Emojis über Discords API. Bereits vorhandene Emojis gleichen Namens werden wiederverwendet. Falls Discord den Upload ablehnt, verwendet die Karte automatisch passende Unicode-Emojis als Fallback.
+Beim erfolgreichen Start lädt die App `album.webp`, `microphone.webp` und `wave.webp` direkt von `cloud.ryz.wtf` und erstellt fehlende Application Emojis über Discords API. Bereits vorhandene Emojis gleichen Namens werden wiederverwendet. Falls Discord den Upload ablehnt oder die Cloud vorübergehend nicht erreichbar ist, verwendet die Karte automatisch passende Unicode-Emojis als Fallback.
 
 ## Datenschutz
 

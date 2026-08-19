@@ -1,5 +1,3 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { REST, Routes } from "discord.js";
 
 type ApplicationEmoji = {
@@ -11,10 +9,10 @@ type ApplicationEmojiList = {
   items: ApplicationEmoji[];
 };
 
-const emojiFiles = {
-  fm_mic: "microphone.webp",
-  fm_album: "album.webp",
-  fm_wave: "wave.webp"
+const emojiUrls = {
+  fm_mic: "https://cloud.ryz.wtf/microphone.webp",
+  fm_album: "https://cloud.ryz.wtf/album.webp",
+  fm_wave: "https://cloud.ryz.wtf/wave.webp"
 } as const;
 
 export class EmojiRegistry {
@@ -25,7 +23,7 @@ export class EmojiRegistry {
     const route = Routes.applicationEmojis(applicationId);
     const existing = (await rest.get(route) as ApplicationEmojiList).items;
 
-    for (const name of Object.keys(emojiFiles)) {
+    for (const name of Object.keys(emojiUrls)) {
       const found = existing.find((emoji) => emoji.name === name);
 
       if (found) {
@@ -33,19 +31,29 @@ export class EmojiRegistry {
         continue;
       }
 
-      const image = await readFile(join(process.cwd(), "assets", "emojis", emojiFiles[name as keyof typeof emojiFiles]));
+      const image = await this.download(name as keyof typeof emojiUrls);
       const created = await rest.post(route, {
         body: {
           name,
-          image: `data:image/webp;base64,${image.toString("base64")}`
+          image: `data:image/webp;base64,${image}`
         }
       }) as ApplicationEmoji;
       this.ids.set(name, created.id);
     }
   }
 
-  text(name: keyof typeof emojiFiles, fallback: string): string {
+  text(name: keyof typeof emojiUrls, fallback: string): string {
     const id = this.ids.get(name);
     return id ? `<:${name}:${id}>` : fallback;
+  }
+
+  private async download(name: keyof typeof emojiUrls): Promise<string> {
+    const response = await fetch(emojiUrls[name]);
+
+    if (!response.ok) {
+      throw new Error(`Could not download ${name}: HTTP ${response.status}`);
+    }
+
+    return Buffer.from(await response.arrayBuffer()).toString("base64");
   }
 }
